@@ -24,6 +24,12 @@ class MCPTests(unittest.TestCase):
         self.addCleanup(self.env.stop)
         self.state = self.home/"state.json"
 
+    def test_codex_roundtrip_integer_and_float_timeouts(self):
+        config = {"command": "server", "startup_timeout_sec": 60}
+        normalized = {**config, "startup_timeout_sec": 60.0}
+        self.assertEqual(mcp_setup.fingerprint(config), mcp_setup.fingerprint(normalized))
+        self.assertNotEqual(mcp_setup.fingerprint(config), mcp_setup.fingerprint({**config, "startup_timeout_sec": 60.5}))
+
     def test_credential_only_reaches_runtime(self):
         item = {"service": "example", "account": "worker"}
         token = b"go-keyring-base64:" + base64.b64encode(b"test-token")

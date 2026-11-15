@@ -131,6 +131,13 @@ def client_config(agent):
 
 
 def fingerprint(obj):
+    if isinstance(obj, dict):
+        # Codex rewrites numeric timeouts as floats when another server changes.
+        obj = obj.copy()
+        for key in ("startup_timeout_sec", "tool_timeout_sec"):
+            value = obj.get(key)
+            if isinstance(value, float) and value.is_integer():
+                obj[key] = int(value)
     return hashlib.sha256(json.dumps(obj, sort_keys=True).encode()).hexdigest()
 
 
@@ -222,7 +229,7 @@ def reconcile(agent, desired, state, state_file, adopt):
         if actual is not None and fingerprint(actual) != previous.get("installed"):
             if "pending" in previous and completed_native_step(agent, actual, previous["pending"]):
                 pass
-            elif not previous and actual == wanted:
+            elif actual == wanted:
                 pass
             elif not (adopt and legacy(name, actual)):
                 raise ValueError(f"{agent}/{name}: existing registration changed or belongs to another installer")
