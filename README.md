@@ -41,7 +41,7 @@ GitWatch monitors each owner's repository separately. It commits and pushes edit
 
 The installer links selected skills into `~/.agents/skills/` for Codex and `~/.claude/skills/` for Claude. It manages a marked section of each client's global instructions and registers selected MCPs at user scope. To disconnect a managed skill or server, remove the assignment from its profile and apply again.
 
-Private service URLs and Keychain item identifiers can be supplied in the owner's `mcp.toml` or overridden for a Mac in `~/.config/agent-setup/mcp.toml`. Tokens are read from macOS Keychain when the MCP starts. Private work services may require VPN access.
+Private service URLs and Keychain item identifiers can be supplied in the owner's `mcp.toml` or overridden for a Mac in `~/.config/agent-setup/mcp.toml`. Tokens are read from macOS Keychain when the MCP starts. Private work services may require VPN access. See [MCP connections](mcp/README.md) for first sign-in and read-only connection checks.
 
 ## Included skills
 
