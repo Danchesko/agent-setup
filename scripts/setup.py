@@ -83,6 +83,7 @@ def update(roots):
         branch = git(root, "branch", "--show-current")
         if not branch:
             raise SystemExit(f"Select a tracking branch in {root} before updating.")
+    for root in roots:
         run("git", "pull", "--ff-only", cwd=root)
     # Load freshly fetched profile and MCP helpers before advancing owner pins.
     apply(roots, False)
@@ -108,9 +109,12 @@ def update(roots):
                 raise SystemExit(f"Local edits in {sub}; finish them before updating.")
             run("git", "fetch", "--quiet", "origin", branch, cwd=sub)
             run("git", "merge-base", "--is-ancestor", "HEAD", "FETCH_HEAD", cwd=sub)
+            previous = git(sub, "rev-parse", "HEAD")
             run("git", "checkout", "--detach", "--quiet", "FETCH_HEAD", cwd=sub)
             run("git", "submodule", "update", "--init", "--recursive", cwd=sub)
-    # A pending gitlink is left for GitWatch. Reconcile links without resetting it.
+            if git(sub, "rev-parse", "HEAD") != previous:
+                run("git", "add", "--", sub.relative_to(root), cwd=root)
+    # GitWatch can now commit the pin; another apply cannot reset it. Reconcile links without resetting it.
     helper("profiles", *roots)
     helper("mcp_setup", *roots)
     for root, role in zip(roots, ("public", "private")):

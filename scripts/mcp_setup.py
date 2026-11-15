@@ -112,8 +112,8 @@ def package_command(name, spec, storage, packages):
             for file in (manifest, lock):
                 shutil.copyfile(file, root/file.name)
             env = dict(os.environ, PATH=str(node.parent) + os.pathsep + os.environ.get("PATH", ""))
-            subprocess.run([executable("npm"), "ci", "--prefix", root, "--ignore-scripts",
-                            "--no-audit", "--no-fund"], env=env, check=True)
+            subprocess.run([executable("npm"), "ci", "--ignore-scripts", "--no-audit", "--no-fund"],
+                           cwd=root.resolve(), env=env, check=True)
         command = [str(node), str(binary)]
     if not binary.is_file():
         raise ValueError(f"{name}: package did not provide {tool}")
