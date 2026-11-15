@@ -1,0 +1,34 @@
+[openaiDeveloperDocs]
+transport = "http"
+url = "https://developers.openai.com/mcp"
+
+[jira]
+codex_timeouts = { startup_timeout_sec = 60, tool_timeout_sec = 120 }
+transport = "stdio"
+package = "mcp-atlassian==0.23.1"
+args = ["--transport", "stdio"]
+local_settings = ["JIRA_URL"]
+keychain_env = ["JIRA_PERSONAL_TOKEN"]
+
+[gitlab]
+codex_timeouts = { startup_timeout_sec = 60, tool_timeout_sec = 120 }
+transport = "stdio"
+package = "@zereight/mcp-gitlab@2.1.61"
+local_settings = ["GITLAB_API_URL"]
+keychain_env = ["GITLAB_PERSONAL_ACCESS_TOKEN"]
+
+# Per-server launch settings and read-only connection probes.
+[jira.runtime]
+manager = "uv"
+executable = "mcp-atlassian"
+python = "3.12"
+clear_prefixes = ["JIRA_", "CONFLUENCE_", "ATLASSIAN_OAUTH_"]
+env = { JIRA_SSL_VERIFY = "true", READ_ONLY_MODE = "false", MCP_LOGGING_STDOUT = "false" }
+probe = { name = "jira_search", arguments = { jql = "assignee = currentUser()", limit = 1, fields = "summary" } }
+
+[gitlab.runtime]
+manager = "npm"
+executable = "mcp-gitlab"
+clear_prefixes = ["GITLAB_", "GLAB_"]
+env = { GITLAB_PERMISSION_MODE = "full", GITLAB_DISABLE_VERSION_CHECK = "true", SSE = "false", STREAMABLE_HTTP = "false" }
+probe = { name = "whoami", arguments = {} }

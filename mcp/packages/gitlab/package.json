@@ -1,0 +1,8 @@
+{
+  "name": "shared-work-mcp",
+  "private": true,
+  "version": "0.1.0",
+  "dependencies": {
+    "@zereight/mcp-gitlab": "2.1.61"
+  }
+}

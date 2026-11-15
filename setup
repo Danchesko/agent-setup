@@ -1,0 +1,21 @@
+#!/bin/sh
+set -eu
+root=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd -P)
+PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:/opt/homebrew/bin:/usr/local/bin"
+export PATH
+if ! command -v uv >/dev/null; then
+    if command -v brew >/dev/null; then
+        brew install uv
+    else
+        installer=$(mktemp -t install-uv)
+        trap 'rm -f "$installer"' EXIT
+        curl --proto '=https' -fsSL https://astral.sh/uv/install.sh -o "$installer"
+        sh "$installer"
+    fi
+fi
+export PYTHONDONTWRITEBYTECODE=1
+if ! python_bin=$(uv python find 3.12 2>/dev/null); then
+    uv python install 3.12
+    python_bin=$(uv python find 3.12)
+fi
+exec "$python_bin" "$root/scripts/setup.py" "$@"

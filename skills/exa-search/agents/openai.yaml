@@ -1,0 +1,5 @@
+interface:
+  display_name: "Exa Search"
+  short_description: "Web search via Exa API"
+policy:
+  allow_implicit_invocation: false

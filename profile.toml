@@ -1,0 +1,11 @@
+[skills]
+clarify = ["codex", "claude"]
+guided-coding = ["codex", "claude"]
+handoff = ["codex", "claude"]
+exa-search = ["codex", "claude"]
+grill-me = ["codex", "claude"]
+grilling = ["codex", "claude"]
+wait-what = ["codex", "claude"]
+
+[mcp]
+openaiDeveloperDocs = ["codex"]
