@@ -42,7 +42,7 @@ def read_profiles(roots, skill_dirs):
             if not source.resolve().is_relative_to(root) or not (source / "SKILL.md").is_file():
                 raise ValueError(f"Missing skill or source outside its repository: {source}")
             for agent in selected_agents(assigned):
-                links[skill_dirs[agent] / name] = source
+                links[skill_dirs[agent] / name] = source.resolve()
         for filename, assigned in profile.get("rules", {}).items():
             path = root / filename
             if Path(filename).is_absolute() or not path.resolve().is_relative_to(root):
