@@ -5,7 +5,7 @@ argument-hint: "What will the next session be used for?"
 disable-model-invocation: true
 ---
 
-Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to `~/handoffs/<YYYY-MM-DD>-<short-slug>.md` (create the directory if missing) - not the current workspace. Print the full path at the end.
+Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to `~/agents/handoffs/<YYYY-MM-DD>-<short-slug>.md` (create the directory if missing) - not the current workspace. Print the full path at the end.
 
 Include a "suggested skills" section in the document, naming which skills the next agent should call the Skill tool for.
 

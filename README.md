@@ -49,7 +49,7 @@ Private service URLs and Keychain item identifiers can be supplied in the owner'
 | --- | --- |
 | [clarify](skills/clarify/SKILL.md) | Clarify a request before acting on it. |
 | [guided-coding](skills/guided-coding/SKILL.md) | Apply implementation and verification preferences. |
-| [handoff](skills/handoff/SKILL.md) | Save a handoff for the next agent in `~/handoffs/`. This version customizes the output path. [Upstream license](skills/handoff/LICENSE) |
+| [handoff](skills/handoff/SKILL.md) | Save a handoff for the next agent in `~/agents/handoffs/`. This version customizes the output path. [Upstream license](skills/handoff/LICENSE) |
 | [exa-search](skills/exa-search/SKILL.md) | Search via the Exa API using a local Keychain item. |
 
 [grill-me](skills/grill-me), [grilling](skills/grilling), and [wait-what](skills/wait-what) use the [mattpocock/skills](https://github.com/mattpocock/skills) submodule. Upstream skills retain their original licenses.
